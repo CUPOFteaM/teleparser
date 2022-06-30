@@ -3,7 +3,7 @@
 
 import logging
 
-_logger = logging.getLogger('teleparser')
+_logger = logging.getLogger("teleparser")
 
 critical = _logger.critical
 debug = _logger.debug
@@ -13,6 +13,7 @@ info = _logger.info
 log = _logger.log
 warning = _logger.warning
 
+
 def configure_logging(verbosity=None):
     for handler in logging.root.handlers:
         logging.root.removeHandler(handler)
@@ -21,8 +22,7 @@ def configure_logging(verbosity=None):
 
     handler = logging.StreamHandler()
 
-    format_string = (
-        '%(asctime)s [%(levelname)s] (%(module)s) %(message)s')
+    format_string = "%(asctime)s [%(levelname)s] (%(module)s) %(message)s"
 
     formatter = logging.Formatter(format_string)
     handler.setFormatter(formatter)

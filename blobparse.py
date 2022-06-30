@@ -6,7 +6,7 @@
 import sys
 import tblob
 
-with open(sys.argv[1], 'rb') as blob_file:
+with open(sys.argv[1], "rb") as blob_file:
     tparser = tblob.tblob()
     blob = tparser.parse_blob(blob_file.read())
     print(blob)
