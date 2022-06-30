@@ -1,15 +1,11 @@
 import argparse
 import os
-import sys
 from teleparser import VERSION, process
 
 import logger
 
 
 if __name__ == "__main__":
-
-    if sys.version_info[0] < 3:
-        sys.exit("Python 3 or a more recent version is required.")
 
     description = "Telegram parser version {}".format(VERSION)
     parser = argparse.ArgumentParser(description=description)
