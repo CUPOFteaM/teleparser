@@ -473,11 +473,11 @@ class tdb:
                 fo.write("{}\n\n".format(tus.blob))
 
     def parse(self):
-        # TODO check new 6.3.0 tables
         # parsing contacts and users first
         self.__get_table_names()
         self.__parse_table_users()
         self.__parse_table_contacts()
+        # working in 7.0.0 but should check unparsed bytes
         self.__parse_table_chats()
         self.__parse_table_dialogs()
         self.__parse_table_enc_chats()
@@ -999,7 +999,9 @@ class tchat:
 
     @property
     def dict_id(self):
-        dictid = {"title": self.blob.title.string}
+        # BUG: trying to use blob title string throws attribute error
+        # dictid = {"title": self.blob.title.string}
+        dictid = {"title": None}
         flags = getattr(self.blob, "flags", None)
         has_username = getattr(flags, "has_username", None)
         if has_username:
@@ -1036,11 +1038,13 @@ class tchat:
         sid = ""
         flags = getattr(self.blob, "flags", None)
         has_username = getattr(flags, "has_username", None)
+        # there is a crash here because not all sid data
         if has_username:
             if self.blob.username.string:
                 sid = "{}".format(self.blob.username.string)
-        elif self.blob.title.string:
-            sid = "{}".format(self.blob.title.string)
+        # BUG: trying to use blob title string throws attribute error
+        # elif self.blob.title.string:
+        #     sid = "{}".format(self.blob.title.string)
         else:
             sid = self.uid
         return sid

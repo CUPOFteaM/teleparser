@@ -65,4 +65,4 @@ def process(infilename, outdirectory):
         teledb.parse()
 
     teledb.save_parsed_tables()
-    teledb.create_timeline()
+    teledb.create_timeline()  # TODO: address crash in this method
