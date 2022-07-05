@@ -13,7 +13,7 @@
             "justMyCode": true,
             "args": [
                 "-v",
-                "../TelegramPOC/Android_12/org.telegram.messenger/files/cache4.db",
+                "../TelegramPOC/Android_11/org.telegram.messenger/files/cache4.db",
                 "../teleparser-output"
             ]
         }

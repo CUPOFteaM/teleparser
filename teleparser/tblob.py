@@ -170,7 +170,7 @@ class tblob:  # pylint: disable=C0103
                     if unparsed_len:
                         logger.warning(
                             "Object: %s [0x%x] contains unparsed "
-                            "data [%d bytes], see UPARSED field",
+                            "data [%d bytes], see UNPARSED field",
                             name,
                             signature,
                             unparsed_len,

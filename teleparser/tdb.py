@@ -32,6 +32,7 @@
 import datetime
 import os
 
+import re
 import logger
 
 # ------------------------------------------------------------------------------
@@ -89,19 +90,30 @@ class tdb:
         """This method retrieves the names of the tables as they vary between versions"""
         self._sqlite_db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         entries = self._sqlite_db_cursor.fetchall()
-        self._table_names = [re[0] for re in entries]
+        self._table_names = [re[0].decode("utf-8") for re in entries]
 
     def __parse_table_chats(self):
-        self._sqlite_db_cursor.execute("SELECT * from chats")
+        chats_re = "messages(_v[0-7])?"
+
+        r = re.compile(chats_re)
+        table_name = list(filter(r.fullmatch, self._table_names))[0]  # Read Note below
+
+        self._sqlite_db_cursor.execute(f"SELECT * from {table_name}")
         entries = self._sqlite_db_cursor.fetchall()
 
         for entry in entries:
             uid = int(entry["uid"])
             assert uid
-            assert uid not in self._table_chats
+            # check if uid found in contacts is user
+            # assert uid not in self._table_chats
             logger.info("parsing chats, entry uid: %s", uid)
             blob = self._blob_parser.parse_blob(entry["data"])
-            chat = tchat(uid, entry["name"], blob)
+            # database in version 7.0.0 doesn't have this entry
+            if "name" in list(entry.keys()):
+                chat = tchat(uid, entry["name"], blob)
+            else:
+                # TODO: retrieve name from new(?) contacts database.
+                chat = tchat(uid, self._table_users[uid].name, blob)
             self._table_chats[uid] = chat
 
     def __save_table_chats(self, outdir):
@@ -462,15 +474,16 @@ class tdb:
 
     def parse(self):
         # TODO check new 6.3.0 tables
+        # parsing contacts and users first
         self.__get_table_names()
-        self.__parse_table_chats()
+        self.__parse_table_users()
         self.__parse_table_contacts()
+        self.__parse_table_chats()
         self.__parse_table_dialogs()
         self.__parse_table_enc_chats()
         self.__parse_table_media_v2()
         self.__parse_table_messages()
         self.__parse_table_sent_files_v2()
-        self.__parse_table_users()
         self.__parse_table_user_settings()
 
     def save_parsed_tables(self):
@@ -1648,6 +1661,9 @@ class tuser:
             if user_self:
                 return flags.is_self
         return False
+
+    def __repr__(self) -> str:
+        return f"{self._uid} : {self._name}"
 
 
 # ------------------------------------------------------------------------------
