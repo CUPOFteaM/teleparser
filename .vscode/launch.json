@@ -8,13 +8,12 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "teleparser.py",
+            "program": "teleparser",
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
                 "-v",
-                "../TelegramPOC/org.telegram.messenger/files/cache4.db",
-                "../TelegramPOC/org.telegram.messenger/shared_prefs/userconfing.xml",
+                "../TelegramPOC/Android_12/org.telegram.messenger/files/cache4.db",
                 "../teleparser-output"
             ]
         }

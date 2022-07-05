@@ -82,6 +82,14 @@ class tdb:
         self._table_sent_files = {}
         self._table_users = {}
         self._table_user_settings = {}
+        # list of table names
+        self._table_names = []
+
+    def __get_table_names(self):
+        """This method retrieves the names of the tables as they vary between versions"""
+        self._sqlite_db_cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        entries = self._sqlite_db_cursor.fetchall()
+        self._table_names = [re[0] for re in entries]
 
     def __parse_table_chats(self):
         self._sqlite_db_cursor.execute("SELECT * from chats")
@@ -454,6 +462,7 @@ class tdb:
 
     def parse(self):
         # TODO check new 6.3.0 tables
+        self.__get_table_names()
         self.__parse_table_chats()
         self.__parse_table_contacts()
         self.__parse_table_dialogs()
