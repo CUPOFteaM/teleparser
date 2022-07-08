@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Android 11, version 7.0.0",
             "type": "python",
             "request": "launch",
             "program": "teleparser",
@@ -14,6 +14,19 @@
             "args": [
                 "-v",
                 "../TelegramPOC/Android_11/org.telegram.messenger/files/cache4.db",
+                "../teleparser-output"
+            ]
+        },     
+        {
+            "name": "Android 12, version 8.something",
+            "type": "python",
+            "request": "launch",
+            "program": "teleparser",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "-v",
+                "../TelegramPOC/Android_12/org.telegram.messenger/files/cache4.db",
                 "../teleparser-output"
             ]
         }

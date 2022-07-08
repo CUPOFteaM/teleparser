@@ -9444,6 +9444,8 @@ class tblob:  # pylint: disable=C0103
         ),  # -736472729
         0xA31EA0B5: (web_page_old_struct, "web_page_old", None),  # -1558273867
         0x1CB5C415: (None, "_vector", None),  # 481674261
+        # new ones in version 8.something
+        0x3ff6ecb0: (user_struct, "user", None)
     }
 
 
