@@ -18,6 +18,7 @@ It's assumed a bit of knowledge on how the cache4.db is organized and the specif
 - **5.15.0**: tested, expected to work
 - **><**: could work
 - **6.3.0**: tested, expected to work
+- **7.0.0** tested with data courtesy of [Josh Hickman](https://thebinaryhick.blog/public_images/)
 - **>**: expected to fail
 
 ## Usage

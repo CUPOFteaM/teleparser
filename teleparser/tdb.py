@@ -1556,6 +1556,7 @@ class tuser:
         self._status = int(status)
         self._blob = blob
         # Defensive check
+        logger.warning(f"{uid} : {blob.id}")
         assert int(uid) == int(blob.id)
 
     @property

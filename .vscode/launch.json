@@ -13,12 +13,12 @@
             "justMyCode": true,
             "args": [
                 "-v",
-                "../TelegramPOC/Android_11/org.telegram.messenger/files/cache4.db",
-                "../teleparser-output"
+                "./sample_data/Android_11/org.telegram.messenger/files/cache4.db",
+                "teleparser-output"
             ]
         },     
         {
-            "name": "Android 12, version 8.something",
+            "name": "Android 12, version 8.1.2",
             "type": "python",
             "request": "launch",
             "program": "teleparser",
@@ -26,8 +26,8 @@
             "justMyCode": true,
             "args": [
                 "-v",
-                "../TelegramPOC/Android_12/org.telegram.messenger/files/cache4.db",
-                "../teleparser-output"
+                "./sample_data/Android_12/org.telegram.messenger/files/cache4.db",
+                "teleparser-output"
             ]
         }
     ]
