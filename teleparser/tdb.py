@@ -799,6 +799,21 @@ class tdb:
             for row in self.__messages_to_timeline():
                 fo.write("{}\n".format(row.to_row_string(self._separator)))
 
+    def get_chats_timeline(self):
+        return self.__chats_to_timeline()
+
+    def get_dialogues_timeline(self):
+        return self.__dialogs_to_timeline()
+
+    def get_enc_chats_timeline(self):
+        return self.__enc_chats_to_timeline()
+
+    def get_users_timeline(self):
+        return self.__users_to_timeline()
+
+    def get_messages_timeline(self):
+        return self.__messages_to_timeline()
+
 
 # ------------------------------------------------------------------------------
 
