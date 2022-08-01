@@ -1000,7 +1000,11 @@ class tchat:
     @property
     def dict_id(self):
         # BUG: trying to use blob title string throws attribute error
-        # dictid = {"title": self.blob.title.string}
+        try:
+            dictid = {"title": self.blob.title.string}
+        except AttributeError:
+            logger.warning(f"No title found for conversation {self.uid} reverting to using uid")
+            dictid = {"title": self.uid}
         dictid = {"title": None}
         flags = getattr(self.blob, "flags", None)
         has_username = getattr(flags, "has_username", None)
@@ -1039,13 +1043,17 @@ class tchat:
         flags = getattr(self.blob, "flags", None)
         has_username = getattr(flags, "has_username", None)
         # there is a crash here because not all sid data
-        if has_username:
-            if self.blob.username.string:
-                sid = "{}".format(self.blob.username.string)
-        # BUG: trying to use blob title string throws attribute error
-        # elif self.blob.title.string:
-        #     sid = "{}".format(self.blob.title.string)
-        else:
+        try:
+            if has_username:
+                if self.blob.username.string:
+                    sid = "{}".format(self.blob.username.string)
+            # BUG: trying to use blob title string throws attribute error
+            elif self.blob.title.string is not None:
+                sid = "{}".format(self.blob.title.string)
+            # else:
+            #     sid = self.uid
+        except AttributeError:
+            logger.warning(f"No title found for conversation {self.uid} reverting to using uid")
             sid = self.uid
         return sid
 
