@@ -837,6 +837,24 @@ class trow:
             "extra",
         )
 
+    def row_to_tuple(self):
+        """return row as tuple"""
+        return (
+            self._timestamp,
+            self._source,
+            self._id,
+            self._type,
+            self.from_who,
+            self.from_id,
+            self.to_who,
+            self.to_id,
+            self._dialog,
+            self._dialog_type,
+            self._content,
+            self._media,
+            self._extra,
+        )
+
     def dict_to_string(dict_in):
         # pylint: disable=E0213,E1101
         return " ".join("{}:{}".format(k, v) for (k, v) in dict_in.items())
